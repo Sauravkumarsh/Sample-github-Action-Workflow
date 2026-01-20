@@ -28,7 +28,7 @@ jobs:
 
                 
     on-workflow-dispatch: # job 3
-        if: github.event_name == 'workflow-dispatch'
+        if: github.event_name == 'workflow_dispatch'
         runs-on: ubunut-latest
         steps:
             - name: "Running on workflow dispatch"
