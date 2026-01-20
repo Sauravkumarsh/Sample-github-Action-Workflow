@@ -25,3 +25,11 @@ jobs:
         steps: # steps to be executed in the job
             - name: "Running on master push" # step 1
               run: echo "Running  on master push" 
+
+                
+    on-workflow-dispatch: # job 3
+        if: github.event_name == 'workflow-dispatch'
+        runs-on: ubunut-latest
+        steps:
+            - name: "Running on workflow dispatch"
+              run: echo "Running on workflow dispatch"          
