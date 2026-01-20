@@ -4,9 +4,12 @@ on:
         branches:
             - master
             - test
+    schedule:
+         - cron: "0 10 * * 2,4"  
+
     pull_request: # Events: Whenever a pull request is made to the repository        
         branches:
-            - master
+            - master  
         types:
             - closed
             - opened
@@ -27,10 +30,17 @@ jobs:
         runs-on: ubuntu-latest
         steps: # steps to be executed in the job
             - name: "Running on master push" # step 1
-              run: echo "Running  on master push" 
+              run: echo "Running  on pull request"
+              
+    on-pull-request-opened:
+        if: github.event_name == 'pull_request' && github.even.action == 'opened'   
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Running on pull request opened"
+              run: echo "Running on pull request closed"       
     
     on-pull-request-closed:
-         if: github.event_name == 'pull_request' &&  github.event_action == 'closed'
+         if: github.event_name == 'pull_request' &&  github.event.action == 'closed'
          runs-on: ubuntu-latest
          steps:
             - name: "Running on pull request closed"
@@ -41,4 +51,11 @@ jobs:
         runs-on: ubunut-latest
         steps:
             - name: "Running on workflow dispatch"
-              run: echo "Running on workflow dispatch"          
+              run: echo "Running on workflow dispatch"       
+              
+    on-schedule:
+        if: github.event_name == 'schedule'
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Running on schedule" # step 1
+              run: echo "Running on schedule"           
